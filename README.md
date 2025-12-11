@@ -28,7 +28,6 @@ Slot: 3P1-1
 ```
 import math
 
-# Input for mean inter-arrival time
 arr_time_input = ''
 while not arr_time_input.strip():
     arr_time_input = input("Enter the mean inter arrival time of objects from feeder (in secs): ")
@@ -37,12 +36,10 @@ while not arr_time_input.strip():
 
 arr_time = float(arr_time_input)
 
-# Other inputs
 ser_time = float(input("Enter the mean service time of lathe machine (in secs): "))
 robot_time = float(input("Enter the additional time taken for the robot (in secs): "))
 c = int(input("Number of service centres: "))
 
-# Rates
 lam = 1 / arr_time
 mu = 1 / (ser_time + robot_time)
 
@@ -55,7 +52,6 @@ print(f"The mean service rate per second: {mu:.2f}")
 
 rho = lam / (c * mu)
 
-# Calculating P0
 summation = 0
 for i in range(c):
     summation += (lam / mu) ** i / math.factorial(i)
@@ -63,7 +59,6 @@ for i in range(c):
 summation += ((lam / mu) ** c / math.factorial(c)) * (1 / (1 - rho))
 P0 = 1 / summation
 
-# If rho < 1 → stable system
 if rho < 1:
     Lq = (P0 * (lam / mu) ** c * rho) / (math.factorial(c) * (1 - rho) ** 2)
     Ls = Lq + lam / mu
